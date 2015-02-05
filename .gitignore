@@ -31,3 +31,4 @@ tmp
 *.tmproject
 tmtags
 *.sublime-workspace
+*un~

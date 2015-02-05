@@ -42,9 +42,9 @@ describe "ProMotion::TestMapScreen functionality" do
   end
 
   it "should move the map center" do
-    map_screen.center = {latitude: 35.07496, longitude: -82.95916, animated: true}
+    map_screen.center = {latitude: 23.1333, longitude: 113.2667, animated: true}
 
-    wait 0.75 do
+    wait 10.75 do
       center_coordinate = map_screen.center
       center_coordinate.latitude.should.be.close 35.07496, 0.02
       center_coordinate.longitude.should.be.close -82.95916, 0.02
@@ -124,8 +124,8 @@ describe "ProMotion::TestMapScreen functionality" do
     add_image_annotation
     map_screen.annotations.count.should == 6
 
-    # Checking that it conforms to the MKAnnotation protocol manually since this doesn't work in iOS 7:
-    #  map_screen.annotations.last.conformsToProtocol(MKAnnotation).should.be.true
+    # Checking that it conforms to the MAAnnotation protocol manually since this doesn't work in iOS 7:
+    #  map_screen.annotations.last.conformsToProtocol(MAAnnotation).should.be.true
     # See this 8 month old bug - https://github.com/siuying/rubymotion-protocol-bug
 
     checking = map_screen.annotations.last
@@ -227,10 +227,10 @@ describe "ProMotion::TestMapScreen functionality" do
     v.rightCalloutAccessoryView.buttonType.should == UIButtonTypeContactAdd
   end
 
-  it 'should allow you to set different properties of MKMapView' do
-    map_screen.map.mapType.should == MKMapTypeStandard
-    map_screen.map.mapType = MKMapTypeHybrid
-    map_screen.map.mapType.should == MKMapTypeHybrid
+  it 'should allow you to set different properties of MAMapView' do
+    map_screen.map.mapType.should == MAMapTypeStandard
+    map_screen.map.mapType = MAMapTypeHybrid
+    map_screen.map.mapType.should == MAMapTypeHybrid
 
     map_screen.map.isZoomEnabled.should == true
     map_screen.map.zoomEnabled = false

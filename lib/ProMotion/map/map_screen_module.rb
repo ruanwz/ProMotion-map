@@ -3,7 +3,9 @@ module ProMotion
 
     def screen_setup
       self.view = nil
-      self.view = MKMapView.alloc.initWithFrame(self.view.bounds)
+      NSLog NSBundle.mainBundle.bundleIdentifier
+      MAMapServices.sharedServices.apiKey = "d479b065447f24f12381a58a1aa41f00"
+      self.view = MAMapView.alloc.initWithFrame(self.view.bounds)
       self.view.delegate = self
 
       check_annotation_data
@@ -76,7 +78,7 @@ module ProMotion
 
     def zoom_to_user(radius = 0.05, animated=true)
       show_user_location unless showing_user_location?
-      set_region(MKCoordinateRegionMake(user_location, [radius, radius]), animated)
+      set_region(MACoordinateRegionMakeWithDistance(user_location, radius, radius), animated)
     end
 
     def annotations
@@ -121,7 +123,7 @@ module ProMotion
     end
 
     def annotation_view(map_view, annotation)
-      return if annotation.is_a? MKUserLocation
+      return if annotation.is_a? MAUserLocation
 
       params = annotation.params
 
@@ -131,9 +133,9 @@ module ProMotion
       else
         # Set the pin properties
         if params[:image]
-          view = MKAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier:identifier)
+          view = MAAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier:identifier)
         else
-          view = MKPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier:identifier)
+          view = MAPinAnnotationView.alloc.initWithAnnotation(annotation, reuseIdentifier:identifier)
         end
       end
       view.image = params[:image] if view.respond_to?("image=") && params[:image]
@@ -167,7 +169,7 @@ module ProMotion
       meters_per_mile = 1609.344
 
       initialLocation = CLLocationCoordinate2D.new(params[:latitude], params[:longitude])
-      region = MKCoordinateRegionMakeWithDistance(initialLocation, params[:radius] * meters_per_mile, params[:radius] * meters_per_mile)
+      region = MACoordinateRegionMakeWithDistance(initialLocation, params[:radius] * meters_per_mile, params[:radius] * meters_per_mile)
       set_region(region, animated:false)
     end
 
@@ -207,12 +209,12 @@ module ProMotion
       )
 
       # Add some padding to the edges
-      span = MKCoordinateSpanMake(
-        ((topLeft.latitude - bottomRight.latitude) * 1.075).abs,
-        ((bottomRight.longitude - topLeft.longitude) * 1.075).abs
-      )
+      #span = MACoordinateSpanMake(
+      #  long = ((topLeft.latitude - bottomRight.latitude) * 1.075).abs,
+      #  lat = ((bottomRight.longitude - topLeft.longitude) * 1.075).abs
+      #)
 
-      region = MKCoordinateRegionMake(coord, span)
+      region = MACoordinateRegionMakeWithDistance(coord, long, lat)
       fits = self.view.regionThatFits(region)
 
       set_region(fits, animated: args[:animated])
@@ -226,10 +228,10 @@ module ProMotion
       return nil unless params.is_a? Hash
 
       params[:coordinate] = CLLocationCoordinate2D.new(params[:coordinate][:latitude], params[:coordinate][:longitude]) if params[:coordinate].is_a? Hash
-      params[:span] = MKCoordinateSpanMake(params[:span][0], params[:span][1]) if params[:span].is_a? Array
+      #params[:span] = MACoordinateSpanMake(params[:span][0], params[:span][1]) if params[:span].is_a? Array
 
       if params[:coordinate] && params[:span]
-        MKCoordinateRegionMake( params[:coordinate], params[:span] )
+        MACoordinateRegionMakeWithDistance( params[:coordinate], params[:span][0], params[:span][1] )
       end
     end
 

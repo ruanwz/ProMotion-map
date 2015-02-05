@@ -70,10 +70,10 @@ describe "map properties" do
     @map.mapview.should == @map.map
   end
 
-  it "should allow ruby counterparts to MKMapView to be used" do
-    @map.type.should == MKMapTypeStandard
-    @map.type = MKMapTypeHybrid
-    @map.type.should == MKMapTypeHybrid
+  it "should allow ruby counterparts to MAMapView to be used" do
+    @map.type.should == MAMapTypeStandard
+    @map.type = MAMapTypeHybrid
+    @map.type.should == MAMapTypeHybrid
 
     @map.zoom_enabled?.should == true
     @map.zoom_enabled = false
