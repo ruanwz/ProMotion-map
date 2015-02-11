@@ -1,6 +1,7 @@
 # ProMotion-amap
 
-[![Gem Version](https://badge.fury.io/rb/ProMotion-map.svg)](http://badge.fury.io/rb/ProMotion-map) [![Build Status](https://travis-ci.org/clearsightstudio/ProMotion-map.svg)](https://travis-ci.org/clearsightstudio/ProMotion-map) [![Code Climate](https://codeclimate.com/github/clearsightstudio/ProMotion-map.png)](https://codeclimate.com/github/clearsightstudio/ProMotion-map)
+[![Gem Version](https://badge.fury.io/rb/ProMotion-map.svg)](http://badge.fury.io/rb/ProMotion-map) 
+[![Build Status](https://travis-ci.org/ruanwz/ProMotion-map.svg)](https://travis-ci.org/ruanwz/ProMotion-map)
 
 ProMotion-map provides a PM::MapScreen, extracted from the
 popular RubyMotion gem [ProMotion](https://github.com/clearsightstudio/ProMotion).
@@ -10,8 +11,18 @@ AMap link: http://lbs.amap.com/api/ios-sdk/summary/
 
 ```ruby
 gem 'ProMotion-map'
+
+in Rakefile
+```
+Bundler.require
+require 'ProMotion-map'
+
 ```
 
+```
+rake pod:install
+rake
+```
 ## Usage
 
 Easily create a map screen, complete with annotations.
