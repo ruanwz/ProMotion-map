@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "ProMotion", "~> 2.0"
   spec.add_dependency "motion-cocoapods", "~> 1"
+  spec.add_dependency "motion-support", "~> 0.2"
   spec.add_development_dependency "motion-stump", "~> 0.3"
   spec.add_development_dependency "motion-redgreen", "~> 0.1"
   spec.add_development_dependency "rake"
